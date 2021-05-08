@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import TimerDisplay from "./TimerDisplay";
+import TimerForm from "./TimerForm";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Col, Divider } from "antd";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="dashboard">
+      <Col align="center">
+        <h1 style={{ marginBottom: 0 }}>Timers</h1>
+        <Divider />
+        <TimerForm />
+        <TimerDisplay />
+        <Button
+          type="default"
+          style={{ marginTop: 10 }}
+          icon={<PlusOutlined className="button" />}
+        />
+      </Col>
     </div>
   );
 }
