@@ -1,22 +1,41 @@
-import React from "react";
-import { Card } from "antd";
-import "antd/dist/antd.css";
+import React, { useState } from "react";
+import TimerDisplay from "./TimerDisplay";
+import TimerForm from "./TimerForm";
+import PropTypes from "prop-types";
 
-export default function Timer({ timerState, handleChange }) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    //TODO: post data to server and update id
+/**
+ *
+ * Stateful component display timer data. FormState is used to display
+ * either TimerForm or TimerDisplay
+ *
+ */
+export default function Timer({ timerData, newTimer, updateTimer }) {
+  /**
+   * A timer has two states:
+   *  - formClosed == true: TimerDisplay is displayed
+   *  - formClosed == false: TimerForm is displayed
+   */
+  const [formState, setFormState] = useState({ formClosed: true });
+
+  /**
+   * Change formState to the opposite of it's current value
+   */
+  const changeFormState = () => {
+    setFormState({ formClosed: !formState.formClosed });
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>Title</label>
-        <input type="text" value={timerState.value} onChange={handleChange} />
-        <label>Project</label>
-        <input type="text" value={timerState.project} onChange={handleChange} />
-      </form>
-      <Card></Card>
+      {formState.formClosed ? (
+        <TimerForm onCancelClick={changeFormState} />
+      ) : (
+        <TimerDisplay timerData={timerData} />
+      )}
     </div>
   );
 }
+
+Timer.propTypes = {
+  //Timer data to display
+  timerData: PropTypes.object.isRequired,
+};

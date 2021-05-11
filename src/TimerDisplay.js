@@ -12,6 +12,7 @@ export default function TimerDisplay() {
   const [deleteHoverStyle, setDeleteHoverStyle] = useState({
     borderColor: "transparent",
   });
+
   return (
     <div>
       <Card
