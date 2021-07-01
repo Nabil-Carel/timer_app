@@ -1,5 +1,5 @@
 import { message } from "antd";
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "https://us-central1-timer-app-81306.cloudfunctions.net/app/";
 export const getTimers = () =>
   fetch(baseUrl, { method: "GET", mode: "cors" }).then((res) => res.json());
 

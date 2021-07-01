@@ -1,13 +1,18 @@
+const functions = require("firebase-functions");
+
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
-const Timer = require("./src/model/model");
+const Timer = require("./model");
 const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 4040;
 
-//Database connection
-const connectionString = process.env.DB_CONNECTION_STRING;
+// Database connection
+console.log(functions.config());
+const connectionString = functions.config().someservice.db_connection_string;
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -71,7 +76,7 @@ app.put("/:id", (req, res, next) => {
 });
 
 app.delete("/:id", (req, res, next) => {
-  //console.log("params", req.params);
+  // console.log("params", req.params);
   Timer.findByIdAndDelete(req.params.id)
     .then(() => res.sendStatus(200))
     .catch((err) => {
@@ -80,6 +85,7 @@ app.delete("/:id", (req, res, next) => {
     });
 });
 
-app.listen(port, () => {
+app.listen(4040, () => {
   console.log("Server started.");
 });
+exports.app = functions.https.onRequest(app);
