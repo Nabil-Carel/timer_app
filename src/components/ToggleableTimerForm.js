@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
  * Component used to add a new timer. By default, a button is displayed.
  *  Once that button is clicked, a TimerForm is displayed instead.
  */
-export default function ToggleableTimerForm({ onTimerCreate }) {
+export default function ToggleableTimerForm({ onTimerCreate, loading }) {
   //Form Status: formOpened == true => TimerForm displayed, else Button is displayed.
 
   //Styles
@@ -61,6 +61,15 @@ export default function ToggleableTimerForm({ onTimerCreate }) {
 
     handleButtonClick();
   };
+
+  const addTimerButton = !loading ? (
+    <Button
+      type="default"
+      style={buttonStyle}
+      onClick={handleButtonClick}
+      icon={<PlusOutlined className="button" />}
+    />
+  ) : null;
   return (
     <div>
       {formStatus.formOpened ? (
@@ -74,16 +83,12 @@ export default function ToggleableTimerForm({ onTimerCreate }) {
           description={timerData.description}
         />
       ) : (
-        <Button
-          type="default"
-          style={buttonStyle}
-          onClick={handleButtonClick}
-          icon={<PlusOutlined className="button" />}
-        />
+        addTimerButton
       )}
     </div>
   );
 }
 ToggleableTimerForm.propTypes = {
   onTimerCreate: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };

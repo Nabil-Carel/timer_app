@@ -22,7 +22,7 @@ export default function Timer({ timer, /*onTimerUpdate,*/ onTimerDelete }) {
    */
   const [formState, setFormState] = useState({ formClosed: true });
   const [timerData, setTimerData] = useState(timer);
-  const [elapsed, setElapsed] = useState(timerData.elapsed);
+  const [elapsed, setElapsed] = useState(timerData.elapsedTime);
   const [timerRunning, setTimerRunning] = useState(
     Boolean(timerData.runningSince)
   );
@@ -31,7 +31,7 @@ export default function Timer({ timer, /*onTimerUpdate,*/ onTimerDelete }) {
   useEffect(() => {
     let newTimer;
 
-    if (!timerData.runningSince) {
+    if (!timerRunning) {
       setReset(false);
     }
     if (reset) {
@@ -49,12 +49,14 @@ export default function Timer({ timer, /*onTimerUpdate,*/ onTimerDelete }) {
           : "",
       };
     }
-    console.log("nre Yimrt running since", newTimer.runningSince);
-    updateTimerInDB(newTimer).then(() => {
-      if (reset) {
-        message.success("Timer reset.");
-      }
-    });
+    // console.log("nre Yimrt running since", newTimer.runningSince);
+    if (!deepEqual(timerData, newTimer)) {
+      updateTimerInDB(newTimer).then(() => {
+        if (reset) {
+          message.success("Timer reset.");
+        }
+      });
+    }
   }, [elapsed, timerRunning, reset]);
 
   /* -------------------------------- End Hooks ------------------------------- */
@@ -79,6 +81,7 @@ export default function Timer({ timer, /*onTimerUpdate,*/ onTimerDelete }) {
       return true;
     } else {
       message.error("Couldn't update timer.");
+      message.error(timer.title);
       return false;
     }
   };
@@ -146,6 +149,33 @@ export default function Timer({ timer, /*onTimerUpdate,*/ onTimerDelete }) {
       message.error("Couldn't delete timer.");
     }
   };
+
+  function deepEqual(object1, object2) {
+    const keys1 = Object.keys(object1);
+    const keys2 = Object.keys(object2);
+
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+
+    for (const key of keys1) {
+      const val1 = object1[key];
+      const val2 = object2[key];
+      const areObjects = isObject(val1) && isObject(val2);
+      if (
+        (areObjects && !deepEqual(val1, val2)) ||
+        (!areObjects && val1 !== val2)
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function isObject(object) {
+    return object != null && typeof object === "object";
+  }
   /* ------------------------------ End Functions ----------------------------- */
 
   return (
