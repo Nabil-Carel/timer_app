@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/timer_app/static/css/main.96df0774.chunk.css",
-    "main.js": "/timer_app/static/js/main.26240513.chunk.js",
-    "main.js.map": "/timer_app/static/js/main.26240513.chunk.js.map",
+    "main.js": "/timer_app/static/js/main.1a72258f.chunk.js",
+    "main.js.map": "/timer_app/static/js/main.1a72258f.chunk.js.map",
     "runtime-main.js": "/timer_app/static/js/runtime-main.d9e23bcf.js",
     "runtime-main.js.map": "/timer_app/static/js/runtime-main.d9e23bcf.js.map",
     "static/css/2.14c36052.chunk.css": "/timer_app/static/css/2.14c36052.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.14c36052.chunk.css",
     "static/js/2.9f9e681a.chunk.js",
     "static/css/main.96df0774.chunk.css",
-    "static/js/main.26240513.chunk.js"
+    "static/js/main.1a72258f.chunk.js"
   ]
 }
