@@ -6,7 +6,12 @@ const functions = require("firebase-functions");
 
 const express = require("express");
 const mongoose = require("mongoose");
-const Timer = require("./model");
+// const Timer = require("./model");
+const models = require("./model");
+const Timer = models.timerData;
+const TaskList = models.tasks;
+const RoommateList = models.roommate;
+
 const cors = require("cors");
 const app = express();
 
@@ -85,6 +90,36 @@ app.delete("/:id", (req, res, next) => {
     });
 });
 
+app.get("/tasks", (req, res) => {
+  TaskList.find((err, tasks) => {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      res.json(tasks);
+    }
+  });
+});
+app.get("/roommates", (req, res) => {
+  RoommateList.find((err, roommates) => {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      res.json(roommates);
+    }
+  });
+  // const roommateList = new RoommateList();
+  // console.log("received");
+  // roommateList
+  //   .save()
+  //   .then((roommateList) => {
+  //     console.log(roommateList);
+  //     res.status(200).json(roommateList);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(500).send(err.message);
+  //   });
+});
 app.listen(4040, () => {
   console.log("Server started.");
 });

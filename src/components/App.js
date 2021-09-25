@@ -60,7 +60,7 @@ function App() {
         <h1 style={dividerAndH1Style}>Timers</h1>
         <Divider style={dividerAndH1Style} />
         {renderedTimers}
-        <ToggleableTimerForm onTimerCreate={newTimer} loading={loading} />
+        <ToggleableTimerForm onTimerCreate={newTimer} />
       </Col>
     </div>
   );
